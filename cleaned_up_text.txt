@@ -1,0 +1,445 @@
+
+Title: Computational models of cortical folding: 
+a review of common approaches
+
+Authors: Mohsen Darayi, Mia E. Hoffman, John Sayut, Shuolun Wang, Nagehan Demirci, Jack Consolini, and Maria A. Holland
+
+ Department of Aerospace and Mechanical Engineering, University of Notre Dame, Notre Dame, IN 46556, USA
+
+ Bioengineering Graduate Program, University of Notre Dame, Notre Dame, IN 46556, USA
+
+Keywords: Cortical folding, Computational modeling, Gyrification, Brain development
+
+Word count: 5906 
+
+Corresponding author: 
+
+Maria A. Holland 
+
+142 Multidisciplinary Research Building 
+
+Notre Dame, IN 46556 
+
+Phone: 574-631-1866 
+
+Email: mailto:maria-holland@nd.edumaria-holland@nd.edu
+
+Computational models of cortical folding: a review of common approaches
+
+
+
+
+
+
+The process of gyrification, by which the brain develops the intricate pattern of gyral hills and sulcal valleys, is the result of interactions between biological and mechanical processes during brain development. Despite decades of research, many questions remain - How is the pattern of folding determined?  How does it vary between individuals and species?  What causes abnormal folding in neurological disorders?
+
+In addition to innovative experimental studies attempting to answer these questions, researchers have developed a vast array of mechanical models in order to investigate aspects of brain development. This review aims to summarize these studies, focusing on five essential elements of the brain that affect development and gyrification and how they are represented in computational models: (i) the constraints of skull, meninges, and CSF; (ii) heterogeneity of cortical layers and regions; (iii) anisotropic behavior of subcortical fiber tracts; (iv) material properties of brain tissue; and (v) the complex geometry of the brain. 
+
+Finally, we highlight areas of need future simulations of brain development.
+
+Cortical folding Computational modeling Gyrification Brain development
+
+
+Introduction
+
+The human brain starts small and smooth before growing and folding into its characteristic shape between 25 and 40 weeks of gestation. 
+The form of the brain is the result of coupled biological and mechanical processes, whereby cells exert forces on the surrounding tissue, and in turn respond to the forces they experience.
+
+Alterations in cortical folding are associated with various neurological disorders, including schizophrenia, Autism Spectrum Disorders, Williams syndrome, Attention Deficit Hyperactivity Disorder, and  bipolar disorder. Proper diagnosis and treatment of these disorders requires a deeper understanding of how the brain folds. Improved characterization of gyrification patterns would enable early diagnosis and potentially identify pathways for the development of effective interventions.
+
+Scientists have studied brain morphology for well over a hundred years. Many of the early investigations focused on comparisons between humans and other primates and mammals, studying the allometric relationships governing brain morphology across species. For instance, it was found that brain size increases exponentially with body size and that the cortical surface area increases linearly with the volume of the brain, while the cortical thickness remains relatively constant. Other early investigators focused on the geometry of the folded brain. They found that the volume of the cortical columns and layers remains consistent throughout the gyri and sulci (outward and inward folds, respectively), and that folding aligns with directions of minimal curvature. 
+There was also intense interest in determining functionally distinct regions of the cortex, which has continued in recent years, particularly due to advances in neuroimaging techniques. 
+Recently, cellular, molecular, and genetic factors of brain development have offered new insights to the study of cortical folding.
+For instance, studies have shown that tissue microstructure and gene expression affect folding patterns and functional connectivity in specific regions. 
+In many cases, these investigations have been focused on not only understanding basic questions about the ontology of the brain, but also on the mechanisms responsible for cortical malformations and mental disorders. 
+
+
+As the rapid growth and folding of the human brain takes place during the third trimester of gestation, in vivo experiments and even close observation are difficult. In response to this challenge, a number of computational models have been developed in order to represent the process of gyrification in silico, often accompanied by in vivo imaging, ex vivo dissections" and physical analogue experiments. Computational modeling has greatly increased our understanding of brain development, providing powerful tools to simulate complex and nonlinear physical and biological interactions in order to predict realistic folded morphologies. These models have enabled researchers to test and evaluate different hypotheses and to observe the effects of multiple parameters, such as cortical thickness and curvature, on gyrification.  
+In silico approaches have the advantage of being able to simulate long-term developmental processes quickly and at comparatively low cost.  
+Computational models show particular promise in the investigation of folding pathologies via small changes in the initial conditions or governing equations.
+
+
+Features of the human brain and head relevant to simulations of brain development. (A) Layers surrounding the brain (from outermost to innermost): scalp, skull, periosteal dura mater, dural venous sinus, meningeal dura mater, arachnoid mater, subarachnoid space, CSF (shown in blue), and pia mater.  (B) Cortex, consisting of six distinct layers (shown in shades of gray).  (C) Axonal white matter fiber tracts, consisting of bundles of axons covered in myelin sheaths, connecting different regions of the brain and spinal cord. (D) Gray and white matter, distinct tissues with different properties. (E) Complex geometry of the brain, which features regions of high and low curvature.
+
+
+The purpose of this review is not to focus on the competing theories of gyrification; for excellent reviews on this topic, we refer interested readers to Welker1990,Ronan2015,Garcia2018mechanics. Rather, we aim to discuss how these theories have been investigated and tested theoretically and computationally. First we give a brief overview of the underlying biology and mechanics of brain development (Section ) and the  kinematics, balance laws, and constitutive relations used to develop mechanical models of growth (Section ). Then we focus on five elements which affect brain development (Fig-brain) and how they have been represented in computational models: extra-cerebral tissues including the skull, meninges, and CSF) (Section ); gray matter (Section ); white matter (Section ); tissue properties (Section ); and initial geometry (Section ). Finally, we conclude and suggest a number of future research directions (Section ). 
+
+
+
+
+Biomechanics of brain developmentBiology of brain development
+
+Neurogenesis and cortical folding during development. 
+Top: Early in development, neural progenitor cells (light gray) originate in the ventricular zone.  Radial glial cells (gray) arise from the progenitor cells and migrate towards the cortical plate, forming radial glial fibers (gray lines). Bottom: Later, neurons (black) arise from the same progenitor cells and migrate outward along the radial glial fibers to accumulate on the cortex.
+
+During early development, glial cells originating from progenitor cells in the ventricular zone travel between the ventricle and cortical plate, providing a scaffold of glial fibers on which neurons, produced from the same progenitor cells, migrate outwards. These migrating neurons eventually establish the cortical plate, also known as the cortex or cortical gray matter (Fig-development).
+In humans, cortical folding begins around the 25th week of gestation, after the completion of neuronal proliferation and migration.
+After migrating, neurons develop dendrites and axons to connect to other cells.  
+Along with the extracellular matrix, bundles of axons form the bulk of the subcortical brain mass, known as white matter.  
+As the white matter develops, diffusion tensor imaging shows a widespread increase in cross-sectional size of fiber bundles, with localized increases in axonal density during early childhood.
+For thorough reviews on the cellular processes that accompany brain development, we suggest Taverna2014, Llinares-Benadero2019.
+
+
+
+Mechanical theories of brain development
+The main theories of gyrification can be divided into those that attribute folding to intrinsic forces and those that implicate extrinsic forces. 
+The latter was briefly favored, inspired by the observation that the surface area of the brain is much larger than that of the cranium. 
+Later, the volume constraint of the skull was largely disregarded as an explanation for cortical folds after an early experiment found that folding continued normally even when some brain tissue was removed.
+
+Subsequently, most research has focused on the role of forces intrinsic to the cerebrum itself.  
+In fact, some of the earliest publications on gyrification claimed that folding occurred because the growth of the outer cortical layer outpaced that of the inner white matter, resulting in instability and folding. 
+Later, in one of the first quantitative theories of gyrification, folding was predicted to occur as the result of differential growth between cortical layers. 
+This theory, generally known as the differential growth hypothesis, has also been supported by recent studies on developing brain organoids. 
+
+
+A competing theory of intrinsic forces in cortical folding points to axonal tension as the driver of gyrification, with gyri resulting from areas with more axonal connections and folding scaling with connectivity.
+These hypotheses have been supported by studies that demonstrate the substantial impact of axonal tension on the shape of convolutions. 
+However, experiments have also revealed that stress patterns in the brain do not match those predicted to result from axonal tension.
+While this theory has fallen out of favor recently, it is likely that elements of all three theories combine to modulate the expansion of gray and white matter, determine the placement of individual folds, and shape the surface of the cortex.
+
+
+
+
+Continuum framework
+
+Here we introduce the kinematics, balance laws, and constitutive relations used to model brain development within the framework of finite growth.
+
+In this formulation, material is added or removed in the stress-free state, and elastic deformation is then needed to preserve the continuity in the body, potentially giving rise to residual stress.
+For a more thorough discussion of the theory of finite growth, we refer interested readers to Taber1995,Kuhl2003computational,menzel2012frontiers,hitchhiker.
+While the majority of studies of brain development have based their models on this approach, a few have represented cortical growth using isotropic osmotic or thermal expansion.  
+
+
+Kinematics of growth
+A referential body , with arbitrary material points , undergoes a motion  to the current deformed body  with deformation gradient
+
+
+
+where  denotes the gradient with respect to the material point  in the reference configuration.
+
+The total deformation gradient can be multiplicatively decomposed,
+
+ 
+
+into an irreversible growth part  and an energy-storing, reversible elastic part  (Fig:schematics).
+
+   Configurations in the theory of finite growth. The dark gray boxes are infinitesimal neighborhoods of the points  in the reference configuration , and  in the deformed configuration .
+
+The volumetric change, 
+
+can also be decomposed into elastic and growth parts, 
+
+
+
+
+
+Balance equations
+
+Because a growing body is an open system, the mass density in the reference configuration, , can change in response to a mass flux  or source ,
+
+
+where  denotes divergence with respect to the material point  in the reference configuration.
+It is common to assume that the material added to the system has the same properties as the existing tissue, such that the mass density in the intermediate configuration is the same as the referential mass density, , and the current mass density can only be altered by elastic volumetric deformation, .  
+Although one study did directly model the movement of cells in the developing brain, mass transport is generally ignored ().
+In that case, the rate of change in referential density  only depends on the mass source, and growth can be expressed simply by the growth tensor  .
+
+Note that most studies of growth and development use a quasi-static assumption because of the time scales involved. Thus, the inertia of the growing body does not affect the balance of forces and moments.
+
+Constitutive equations 
+Strain energy density is generally defined per unit reference volume, ; for hyperelastic material models such as neo-Hookean, Mooney-Rivlin, or Ogden materials, the second Piola-Kirchhoff stress is thus defined as 
+
+where  is the right Cauchy-Green deformation tensor.
+Most commonly, the strain energy density of growing materials is defined instead in terms of only the elastic deformation, in which case the stress is more easily derived as
+
+where  is the elastic right Cauchy-Green deformation tensor.
+Thus, the stress is strongly dependent on the form of the growth tensor, .
+Common types of growth used in simulations of brain development include isotropic growth, transversely isotropic area growth, and transversely isotropic fiber growth,
+
+respectively, with  normal to the plane of area growth and  along the direction of fiber growth.
+In these three cases, the growth variable  represents volume change, area change, and length change, respectively,
+
+
+To complete the constitutive model, we define the evolution of the growth variable .
+This may be mechanically driven by tissue stress or strain, e.g.
+
+where  is a rate parameter,  is the elastic stretch, and  and  are homeostatic baseline values. 
+Alternatively, it may be morphogen-driven, as is frequently assumed in the growth of the cortex; most commonly, this is simplified to a constant growth rate in time, 
+
+Finally, the evolution of the growth variable could be based on cell density, which is the net result of cellular migration and diffusion.
+
+
+
+Cranial modeling: from the brain in isolation to the brain-meninges-skull complex
+Early studies of cortical convolutions were particularly interested in investigating the mechanical constraint and resistance produced by the skull, but since an experimental study showed that brain folding is not dependent on running out of room inside the skull, research has mostly focused on factors intrinsic to the brain.
+Thus, the majority of models of brain development represent the gray and white matter in isolation (Fig-cranialA). 
+Simulations of brains growing in complete isolation have led to a fundamental understanding of the forces intrinsic to the cerebrum that can give rise to gyri and sulci.
+These studies focus on the effects of differential growth between cortical layers, inducing mismatch strain which then results in instabilities and folding. 
+From this work, we know that increasing the cortical growth rate increases gyrification, while increasing cortical stiffness or thickness decreases gyrification. 
+Some studies have included subcortical axon growth and reorientation, suggesting that these play a vital role in folding patterns.
+
+
+Constraints of the skull, meninges, and CSF in models of brain development. In most studies, cortical folding is assumed to result from forces intrinsic to the brain, generally between the cortical and subcortical layers (A), while only a few studies have investigated the role of extrinsic tissues such as the pia mater, via a trilayer model, or CSF, via a surface pressure boundary condition. 
+
+Constraint of the skull
+
+While the constraint of the skull is not necessary for the formation of cortical folds, it does appear to influence gyrification and fold geometry. When a cranial constraint is included, curvature increases much faster, resulting in a more highly convoluted brain and earlier emergence of gyri and sulci. Similarly, it has been suggested that the skull may influence the geometry of the gyrus, flattening them as they make contact with the skull.
+Abnormalities of the developing skull also affect brain development.
+For example, the premature fusion of cranial sutures (craniosynostosis) can drastically alter the size and shape of the skull and brain.
+However, even though the effect of cranial suture fusion on the growing brain has been investigated, the overall role of the skull in brain development must be further studied.
+
+Constraint of the meninges
+
+The meninges consist of the pia mater, arachnoid mater, and dura mater. While the meninges are known to play a biochemical role in signaling between the brain and the skull, their mechanical role is less clear. 
+When the brain is modeled as a trilayer, with a layer of pia mater on top of the gray and white matter (Fig-cranialB), the thickness, stiffness, and growth rate of the pia mater was found to affect cortical folding, decreasing the number of sulci and gyri and increasing the wavelength of the folding. 
+As meninges dominate the brain’s mechanical behavior in some loading cases, their impact on folding mechanics should be more rigorously investigated. 
+
+Constraint of CSF
+The CSF surrounds the brain, supplying nutrients, removing cellular waste products, and, importantly, protecting the brain from damage. Disruption of normal CSF circulation during brain development can result in neurodevelopmental disorders such as hydrocephalus, a common disorder resulting in ventricle enlargement, increased intracranial pressure, decreased neuronal migration, and decreased cortical thickness. Normally, the CSF exerts a pressure of 1.56 (200800) on the full-term infant brain and less than 1015 (13002000) on the adult brain. Several studies have pointed out the importance of these physiological pressures for normal brain development broadly, but the effect of CSF pressure on the gyrification process specifically is poorly understood. When CSF was added as a pressure constraint, predictions of absolute Gaussian curvature improved in comparison to an unconstrained model. Our recent work has also shown that the addition of pressure on the outer surface of a bilayer system (Fig-cranialC), such as that exerted by the CSF, reduces the stability of the system, particularly in cases of soft materials such as the brain. 
+
+Future directions
+
+While experimental evidence suggests that cranial constraints are not the main cause of folding, they may be one necessary ingredient among others for the development of the typical shape of the brain.
+For example, it has been suggested that gyri become flattened from pressing against the meninges and skull.
+
+Thus, while perhaps playing a negligible role in the initiation of folds, the effect of external constraints on later gyrification is worth further investigation, such as a model of post-buckling behavior that includes contact between cortical and meningeal tissues.
+
+To better understand what this constraint and contact would look like, further experimental studies are necessary to describe the behavior of the meninges, particularly their growth trajectory throughout development.
+
+Additionally, many questions remain about the interaction of the brain, meninges, and skull in a variety of neurological conditions.
+Computational simulations of gyrification in the case of premature sutural fusion in craniosynostosis, ideally in conjunction with medical imaging approaches, could lead to a deeper understanding of the coupled growth of the brain and skull.
+This could, in turn, result in new insights into other neurological conditions such as microcephaly, of great interest because of its association with Zika virus.  
+
+Finally, CSF has been severely understudied in brain development, unlike studies of traumatic brain injury.
+
+Further work on this topic will require accurate measurements of changes in CSF properties and pressure throughout development.  
+
+We also note that the ventricles, interior reservoirs of CSF, have not been included in models of gyrification, and thus their role in cortical folding is unknown.
+A combined computational approach with neuroimaging data would be particularly powerful in the investgation of both physiological and pathological (i.e., ventriculomegaly) ventricular pressures.
+
+
+
+
+
+
+Cortical modeling: from homogeneity to heterogeneity
+The earliest models of brain folding assumed a homogeneous cortex experiencing homogeneous growth (Fig-corticalA), partly due to limitations of early analytical approaches.
+These models illuminated the effects of growth rate on surface morphology, showing that increased cortical growth leads to shallower folds,  whereas increased cortical thickness leads to longer and wider folds.
+Growth rate also affects the emergence of residual stresses in the developing brain. 
+In a 3D spherical bilayer model, cortical thickness was found to influence the onset of buckling in the case of isotropic cortical growth, while transversely isotropic surface growth of the cortex was insensitive to initial thickness. 
+In our own work, we modeled a simple rectangular bilayer with homogeneous thickness and growth in the cortex to show that gyri thicken and sulci thin as a natural result of the forces generated during folding. These thickness variations are a striking feature of physiological cortical thickness patterns, making it quite significant that this asymmetry can emerge from a perfectly homogeneous system. 
+
+
+Models of cortical growth. Homogeneous cortical growth (A) is most common in studies of brain development, although local perturbations (B, where the darker region indicates higher growth) are sometimes included to initiate folding on otherwise perfectly uniform domains. 
+A few studies have investigated more complex heterogeneous patterns (C), including both pre-patterned variation and variation dependent on the formation of cortical folds
+
+Heterogeneity
+
+However, studies on neuronal migration and composition have revealed heterogeneity in the evolution of the cortex.
+The simplest approach to introducing cortical heterogeneity is to include small perturbations (Fig-corticalB), often in the form of a localized increase or reduction in cortical thickness, stiffness, or growth.  
+This is done to trigger the formation of instabilities on otherwise-perfectly uniform surfaces, particularly rectangular and spherical domains.  
+Several of these studies have found that gyri are more likely to form at locations of higher growth or stiffness, while sulci tend to appear at points of lower growth or stiffness.
+Very few studies have gone further, varying cortical properties throughout the cortical surface (Fig-corticalC).  
+For example, sinusoidal variations in cortical growth and thickness led to more complex wrinkling patterns similar to experimental observations.
+Additionally, increased cortical heterogeneity decreased the stability of the bilayer system, with buckling occurring in the thinnest regions. 
+Recently, we developed a novel gyrification model where sulci and gyri (differentiated by mean curvature) grow at different rates.  Using this model, we investigated the resulting cortical thickness variations and, based on comparison with data from human MR images, concluded that gyri grow faster than sulci. 
+
+
+
+Future directions
+The greatest challenge in cortical modeling is the distance that currently exists between our biological understanding and our computational models.
+
+For example, the commonly used theory of finite growth represents mass and volume change through point sources, which is not a realistic representation of how the cortex grows.
+One study addressed this by directly modeling the migration of cells outward from the subventricular zone to the cortical plate.
+
+Further advances should consider how to model volume growth after folding begins, due to dendritic arborization, axonal myelination, and synaptogenesis.
+
+Additionally, incorporating the effects of gene expression on these processes could provide a natural source of heterogeneity in cortical properties and growth.
+
+Overall, future studies should move beyond the simple patterns considered thus far, and attempt to include heterogeneity based on data such as initial cortical thicknesses in fetal brains, potentially alongside simultaneous changes in tissue stiffness.
+
+Finally, the cortex is also known to vary significantly in the radial direction, with six distinct layers or laminae.
+Laminar differences in cytoarchitecture and gene expression may also produce differences in tissue properties and growth.
+Although radial changes in tissue properties have been investigated in the subcortex, this has not been explored in the cortical laminae.  
+
+
+
+Subcortical modeling: from isotropy to anisotropy
+Historically, more focus has been placed on the cortex than on the other structures in the brain. In fact, many studies have analyzed cortical convolutions using a model consisting of a bi- or multilayer with growth only taking place in the cortex, while others assume a simple isotropically growing subcortex 
+For example, investigated the generation of residual stresses in the white matter using an isotropic stress-driven growth model, demonstrating agreement with ex vivo experiments on adult mouse brains. They found that increasing the relative growth and shear modulus of gray matter led to greater residual stress levels in white matter. 
+Other studies showed that the subcortical growth is positively correlated with the degree of cortical folding, while increasing the shear modulus of subcortical regions results in smooth shallow folding patterns. 
+
+
+Models of subcortical growth. Many models of cortical folding have included a simple subcortical layer (A) that either does not grow or grows isotropically in response to mechanical stimuli . 
+Only a few models have incorporated axonal-based anisotropy in the subcortex, using different patterns of axon alignment
+
+Anisotropy
+Strongly aligned bundles of axons and heterogeneous cell division and migration have been identified in white matter. 
+The presence of these aligned fibers has revealed material anisotropy with respect to the local neuroarchitecture of white matter.
+Given that axons are known to grow under prolonged tension, this anisotropy could play a crucial role in both the elastic and growth behavior of brain tissue.
+Based on these observations, researchers have proposed multiple models to simulate white matter growth during development. 
+For example, assuming that the subcortex could grow differentially in response to radial and tangential stresses led to stress distributions that were in good agreement with previous ex vivo experiments. 
+We further explored the effects of axonal elongation and orientation in a model of transversely isotropic white matter, which elongates along a preferred axonal direction in response to applied stretch (Fig-subcorticalB). We found that increased axonal growth rates along specific orientations lead to an increase in sulcal depth, gyral wavelength, and irregular morphology. 
+In another study, gyral regions tended to form in regions of dense glial and axonal fibers (Fig-subcorticalC) growing faster than the surrounding white matter.
+Most recently, a new model incorporates both growth and reorganization of subcortical fibers in response to stress.
+These simulations predict that fibers will be predominantly oriented radially in gyri and tangentially under sulci, which is similar to the fiber organization seen in real brains.
+
+Future directions
+Based on diffusion tensor and MR imaging studies that have demonstrated structural anisotropy and nonuniform growth in white matter, it is important to include realistic subcortical behavior in models of cortical folding.
+
+This is particularly important in the case of neurological disorders where connectivity is implicated as a possible cause, such as Autism Spectrum Disorder.
+
+One of the next steps in subcortical modeling should be to include multiple fiber directions or fiber dispersion models that mirror data found in diffusion tensor imaging studies.
+This is already being done in the field of traumatic brain injury, particularly in the elastic behavior of white matter.
+
+In the case of brain development, anisotropy can appear in both elastic and growth properties, but only the latter has been investigated.
+
+While fiber directions can be observed from neuroimaging studies, it is important to consider that this data is taken at a single time point.
+As it is known that axons respond significantly to mechanical stimulus, their ability to reorient should be investigated and potentially modeled.
+
+Finally, we note that a traditional finite element approach is not capable of modeling true connectivity across elements; existing models of 'axons' create discrete vector fields of preferred directions in individual elements.
+The direct representation of axonal bundles would open up new possibilities in the study of cortical folding.
+
+
+Tissue stiffness: from contrast to similarityQuestions about the material properties of brain tissue have plagued the study of gyrification since its inception.
+The earliest attempts at simulating brain folding were based on studies of instabilities in non-biological multilayered systems, which generally had very high stiffness contrast. 
+The gray-white stiffness ratio has enormous implications on simulations of instabilities, as wrinkling, creasing, and folding are known to emerge in different regimes. 
+One of the earliest mathematical simulations of brain folding investigated the differential growth hypothesis of gyrification using a stiffness contrast of one or two orders of magnitude between the cortex and subcortex (Fig-stiffnessA).  
+As in the earlier theoretical analysis on rubber-like materials under uniform compression, this model predicted sinusoidal wrinkling patterns. 
+A growing body of literature has examined the buckling instabilities of multilayered systems based on Biot's linear perturbation approach, although experimental studies tend to predict lower critical strains in comparison, likely because of the formation of surface self-contact in small localized regions. 
+Despite this unrealistic assumption of high stiffness contrast, these studies have shown that the stiffness ratio of the cortex to the subcortex is proportional to the wavelength. 
+High stiffness contrast has also been shown to delay the onset of secondary bifurcation points such as period-doubling and period-tripling and, as mentioned before, increase the generation of residual stresses in white matter.  
+More recently, the stiffness contrast has been recognized as one of the most important factors in brain development.
+
+
+Stiffness contrast between cortical and subcortical layers. Early models assumed that gray matter is much stiffer than white matter (A, where darker colors represent stiffer material). However, more recent data suggest that the stiffness contrast between the two tissues is much lower (B), and potentially that white matter is even slightly stiffer than gray matter (C).
+
+Low stiffness contrast
+Recent progress on the material characterization of brain tissue has revealed the low stiffness contrast between gray and white matter. 
+Experimental and numerical data suggest that the stiffness contrast between the cortex and the subcortex ranges from 1 to 6. 
+Some data from mechanical characterization studies of brain tissue have even suggested that the white matter is stiffer than gray matter. 
+Differences in reported values could be due to multiple factors such as post-mortem time, specimen size, testing procedure, and regional variations . 
+Based on these experimental findings, many studies of cortical folding use gray-white stiffness ratios between 1 and 3 (Fig-stiffnessB), with a few exploring ranges of stiffness ratios up to or beyond 10.
+Studies have found that a growing bilayer favors creasing before wrinkling when the stiffness ratio is close to one, and tends to wrinkle as the stiffness ratio increases.
+To date, very few studies have simulated the developing brain with stiffness ratios below one (Fig-stiffnessC).
+Our previous studies have found that, for stiffness contrasts below 10, the source of compressive forces in the film (i.e., growth vs. substrate prestretch) affects results significantly, and that even low pressures from the surrounding CSF can decrease stability.
+
+
+
+Future directions
+
+Advances in computational studies of folding are highly dependent on concurrent advances in the experimental characterization of brain tissue properties.
+Of course, it is challenging to test the brain, an extremely soft and biologically sensitive tissue surrounded by the thick bone of the skull.  
+Magnetic resonance elastography is particularly promising for capturing in vivo properties, although spatial resolution is limited.
+
+This is an important limitation to overcome, especially given the radial variations in the cortex discussed earlier.
+While much of the work in this area has been focused on identifying regional variations in properties, it should be noted that properties are also changing throughout development, likely stiffening as myelination progresses.
+A potential direction for future study would be to model stiffness as a time-varying property; in the study of airway instabilities, for instance, this has been shown to lead to intricate instability patterns. 
+
+Finally, when comparing tissue properties between simulations and experiments, it is important to remember that loading and growth can change the effective stiffness of a material, or its resistance to further deformation.  
+Because of this, models that define low initial stiffness contrast between gray and white matter will, through cortical growth, increase the stiffness contrast in their simulations.
+
+
+
+
+
+
+
+Geometries: from simple to complex
+Analytical and many numerical simulations of the developing brain have used simple, often two-dimensional, domains.  
+The most commonly used geometry in the literature for modeling the brain folding is a rectangular plane strain  or 2D  bilayer, representing a small subsection of the brain in which curvature can be neglected.
+Researchers have used these models to investigate the influence of various factors such as stiffness ratio, layer thickness, and growth rate. 
+Other 2D models, such as semi-ellipse and circular bilayer, have also been considered, often focusing on curvature, which changes across the surface of an ellipse.
+Convolutions first appear at the minor axis of ellipsoids before propagating to the sides with shallower folding patterns, and longer wavelengths emerge on the curved surface of elliptical models in comparison with rectangular domains. 
+From observations of different mammalian species, brain size and shape strongly influence folding patterns, for example with longitudinal folding patterns more likely to be identified on longer brains.
+Studies on rectangular, elliptical, and eventually ellipsoidal domains of brain tissue have been hugely successful in focusing on non-geometric effects, such as the role of growth and tissue properties. 
+
+
+Model geometries in simulations of brain development. Simple rectangular (A) and elliptical (B) models have been used in many studies of cortical folding, while more realistic geometries such as those reproduced from fetal MR images (C), have shown promise in reproducing physiological folding patterns. 
+
+Complex Geometries
+Even before gyrification begins, however, the fetal brain has a complex shape with significant variations in curvature across its surface.
+
+While simple geometries have provided considerable insight into brain folding, there is still a need for more complex and realistic models, which to date have only been used in a handful of studies.
+An early surface model of cortical folding was based on MR images of fetal brains at 22 weeks of gestation, and explored the effects of cranial constraints and regional variations in growth.
+Later, another study based on real fetal brain geometries demonstrated the sensitivity of gyrification patterns to variations in the initial geometry and demonstrated qualitative and quantitative similarities to human brains such as the variation of gyrification index during development, gyral and sulcal locations, and the appearance of primary convolutions.
+Recently, an inverse modeling approach based on scans of six normal fetuses between gestational weeks 21 and 25 was used to quantify local volume changes in the developing brain, finding evidence of heterogeneous growth shortly before the emergence of the central sulcus.
+
+
+Future directions
+The ultimate goal of gyrification simulations is to begin with a fetal brain geometry and simulate the entire process of cortical folding.
+
+This is particularly important for appropriate comparisons with the many neuroimaging studies focused on physiological and disordered development.
+While this has been done with significant success, it has only been possible by modeling only the brain surface or by fixing the cortical thickness to a non-physiological value.
+
+Future studies will similarly need to devise numerical approaches to handle the huge size and shape changes that occur throughout development, such as remeshing to maintain optimal size and aspect ratios in growing elements.
+
+Another challenge related to fetal geometries is the limited resolution of in utero fetal neuroimaging; using preterm infants instead is not ideal due to the possibility of abnormal development.
+While true volume-based finite element simulations from fetal brain may remain out of reach for the near future, significant advances could be made by focusing on the brains of non-human primates and other mammals, such as macaques and ferrets, which exhibit folding but to a lesser extent than humans.
+
+An added benefit of modeling brain development in animals is the large variety in shapes and sizes of brains across the animal kingdom, which can lead to a broader investigation of the factors that contribute to brain folding writ large.
+Incremental steps towards the ultimate goal of simulating folding throughout development could instead focus on aspects of brain geometry that have been understudied to this point.
+
+For example, while a number of models have investigated the effect of varying curvature, such as that found on an ellipse, no simplified geometry has included concave areas.  
+Of course, the surface of the brain is largely convex, but local concavities (such as the region that becomes the sylvian fissure and the occipital lobe near the cerebellum) may affect folding in their vicinity.
+
+Finally, the majority of studies have used 2D models, which are not capable of capturing the full three-dimensional pattern of folding.
+Intersections between gyri may be connected to abnormal folding, and tangential folds in gyri and sulci are an important feature in highly folded brains, such as those of humans.
+
+
+
+Conclusion
+
+Tremendous progress has been made in the study of cortical folding in silico over the last several decades.
+In this review, we have discussed how researchers have, over time, advanced simulations beyond their limited beginnings.
+We focused on the areas of cranial, cortical, and subcortical modeling, with special attention to the tissue properties and model geometries used.  
+
+
+However, each of these aspects remains in need of further investigation if we are to continue to deepen our understanding of the developing brain.
+As gyrification is the result of coupled biological and mechanical behavior, we divide our suggestions for future work into the two complementary domains of mechanics and biology.
+
+In the realm of mechanics, we need increasingly complex simulations to explore, for instance, the far post-buckling behavior, where gyri potentially interact with the meninges and skull, as well as the formation of tangential folds and intersections.   
+
+In the realm of biology, there are many in vivo and in vitro studies on the molecular, cellular, and genetic determinants of folding that should be better incorporated into our in silico models.  
+This would include 
+
+direct modeling of neuronal migration; 
+incorporation of other sources of volume growth such as myelination and dendritic arborization;
+differential gene expression as a source of regional and temporal heterogeneity;
+
+modeling cortical laminae as distinct layers with differing properties;
+
+and 
+representating white matter with multiple fiber directions and varying connectivity between regions.
+
+In these and other areas, future studies should investigate the 'edge cases' of development, outside the bounds of typical human physiology, both in the huge variety of neurological diseases and disorders, and within the diversity of the animal kingdom.  
+
+Conditions such as craniosynostosis, Zika-associated microcephaly, and lissencephaly in Miller-Dieker syndrome highlight the role of different processes that also occur in typical development.
+
+Similarly, animals possess brains of strikingly different sizes and shapes, exhibiting varying degrees of folding.
+While the ferret is frequently studied because its cortical folding process takes place after birth, other animals offer unique examples of brain development worthy of further study.
+For example, dolphin brains are even more highly folded than humans, and the brains of manatees and beavers are peculiarly smooth for animals of their size.
+
+Brain organoids, developed from human induced pluripotent stem cells, are another particularly promising area for the study of both physiological and pathological brain development.
+
+
+Of course, advances in computational simulations of gyrification must be accompanied by advances in experimental studies.
+The main areas of need currently are better characterization of tissue properties and increased and improved neuroimaging studies.
+
+The stiffness of white and gray matter is still not settled, and even more questions remain regarding regional and temporal variations.  
+Similarly, future simulations may require tissue properties for the meninges and values for CSF pressure both in the ventricles and against the pial surface.
+
+In the field of neuroimaging, huge improvements have occurred recently with the proliferation of 7T imaging, allowing for detailed images of structures as fine as the cortical laminae and offering hope for refinements in techniques such as MR elastography.
+
+In light of recent advances in both computational and experimental investigations of brain development, our understanding of the brain continues to deepen. However, it remains our most complex organ, and further improvements are necessary to unlock the many remaining questions about how our brains form and function.
+
+
+
+
+Acknowledgements
+
+
+MAH acknowledges support from the National Science Foundation under Grant No. (IIS-1850102).
+
+
+
+gobble
+
