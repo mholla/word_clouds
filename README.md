@@ -14,7 +14,7 @@ generating beautiful word clouds from text, as seen on [my publications page](ht
 1. Preprocess source file: 
 
     If you're starting with a LaTeX file (probably also true for other files) you will want to clean it up first: 
-    - use regular expressions (e.g. `\\autocite\{.{5, 50}\})` or manual searching to clean up some parts that detex doesn't handle well (`textcite`, `autoref`, `label`, `cite`, `citep`, etc.)
+    - use regular expressions (e.g. `\\(\w*cite\w*|\w*ref|label)\{[^}]*\}` or manual searching to clean up some parts that detex doesn't handle well (`textcite`, `autoref`, `label`, `cite`, `citep`, etc.)
     - use detex to clean up a lot of the rest: `detex input.tex > output.tex`
     - then delete title, equations, tables, etc. as desired
     
